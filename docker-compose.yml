@@ -1,6 +1,6 @@
 services:
   app:
-    image: php:8.2-apache
+    build: .
     container_name: traffic-tracker-app
     ports:
       - "8080:80"
