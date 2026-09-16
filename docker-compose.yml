@@ -5,7 +5,8 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./src:/var/www/html
+      - ./public:/var/www/html
+      - ./src:/var/www/src
     depends_on:
       - db
 
