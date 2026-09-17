@@ -1,11 +1,8 @@
 <?php
 
-// --- 1. Manually load our classes (no Composer autoload yet) ---
+// --- 1. Load Composer autoloader (automatically finds App\ classes) ---
 
-require_once __DIR__ . '/../src/Repository/PageViewRepository.php';
-require_once __DIR__ . '/../src/Service/TrackingService.php';
-require_once __DIR__ . '/../src/Controller/TrackController.php';
-require_once __DIR__ . '/../src/Controller/DashboardController.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Repository\PageViewRepository;
 use App\Service\TrackingService;
