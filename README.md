@@ -20,8 +20,8 @@ docker-compose up
 ## Development Phase
 - [x] Phase -1: Docker environment
 - [x] Phase 0: Project setup
-- [] Phase 1: Naive working version
-- [] Phase 2: Separation of concerns
-- [] Phase 3: DI container
+- [x] Phase 1: Naive working version
+- [x] Phase 2: Separation of concerns (Router, Controller, Service, Repository)
+- [x] Phase 3: DI container
 - [] Phase 4: Tests
 - [] Phase 5: Polish
