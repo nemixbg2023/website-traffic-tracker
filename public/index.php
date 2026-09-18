@@ -4,33 +4,42 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\Repository\PageViewRepository;
+use App\Container\Container;
+use App\Repository\PageViewRepositoryInterface;
+use App\Repository\MySqlPageViewRepository;
 use App\Service\TrackingService;
 use App\Controller\TrackController;
 use App\Controller\DashboardController;
 
-// --- 2. Build shared dependencies ---
+// --- 2. Build and configure the container ---
 
-$pdo = new PDO(
-    'mysql:host=db;dbname=traffic_tracker;charset=utf8mb4',
-    'tracker_user',
-    'trackerpass'
-);
+$container = new Container();
 
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// Tell the container how to build a PDO connection
+$container->bind(PDO:: class, function ($container) {
+    $pdo = new PDO(
+        'mysql:host=db;dbname=traffic_tracker;charset=utf8mb4',
+        'tracker_user',
+        'trackerpass'
+    );
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    return $pdo;
+});
 
-$repository = new PageViewRepository($pdo);
-$service = new TrackingService();
+// Tell the container which concrete class to use for this interface
+$container->bind(PageViewRepositoryInterface::class, function($container) {
+    return new MySqlPageViewRepository($container->get(PDO::class));
+});
 
 // --- 3. Route the request based on URI path ---
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 if ($path === '/track') {
-    $controller = new TrackController($repository, $service);
+    $controller = $container->get(TrackController::class);    
     $controller->handle();
 } elseif ($path === '/dashboard') {
-    $controller = new DashboardController($repository);
+    $controller = $container->get(DashboardController::class);
     $controller->handle();
 } else {
     http_response_code(404);

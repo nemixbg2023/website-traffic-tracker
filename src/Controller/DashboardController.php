@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use App\Repository\PageViewRepository;
+use App\Repository\PageViewRepositoryInterface;
 
 class DashboardController
 {
-    private PageViewRepository $repository;
+    private PageViewRepositoryInterface $repository;
 
-    public function __construct(PageViewRepository $repository)
+    public function __construct(PageViewRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

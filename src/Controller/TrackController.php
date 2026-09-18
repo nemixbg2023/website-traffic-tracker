@@ -2,16 +2,16 @@
 
 namespace App\Controller;
 
-use App\Repository\PageViewRepository;
+use App\Repository\PageViewRepositoryInterface;
 use App\Service\TrackingService;
 
 class TrackController
 
 {
-    private PageViewRepository $repository;
+    private PageViewRepositoryInterface $repository;
     private TrackingService $service;
 
-    public function __construct(PageViewRepository $repository, TrackingService $service)
+    public function __construct(PageViewRepositoryInterface $repository, TrackingService $service)
     {
         $this->repository = $repository;
         $this->service = $service;

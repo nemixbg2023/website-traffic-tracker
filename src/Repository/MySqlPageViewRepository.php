@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use PDO;
 
-class PageViewRepository
+class MySqlPageViewRepository implements PageViewRepositoryInterface
 {
     private PDO $pdo;
 
