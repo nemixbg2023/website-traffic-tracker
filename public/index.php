@@ -37,7 +37,7 @@ $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 if ($path === '/track') {
     $controller = $container->get(TrackController::class);    
-    $controller->handle();
+    $controller->handle(file_get_contents('php://input'));
 } elseif ($path === '/dashboard') {
     $controller = $container->get(DashboardController::class);
     $controller->handle();

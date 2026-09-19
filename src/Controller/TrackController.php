@@ -17,7 +17,7 @@ class TrackController
         $this->service = $service;
     }
 
-    public function handle(): void
+    public function handle(string $rawBody): void
     {
         // --- 1. Resolve visitor ID (existing cookie or new one) ---
         $existingVisitorId = $_COOKIE['ttrk_visitor_id'] ?? null;
@@ -33,7 +33,6 @@ class TrackController
         }
 
         // --- 2. Read requested data ---
-        $rawBody = file_get_contents('php://input');
         $data = json_decode($rawBody, true);
 
         $pageUrl = $data['page_url'] ?? null;
