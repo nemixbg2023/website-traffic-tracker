@@ -12,10 +12,17 @@ A simple website traffic tracker built progressively as a learning/portfolio pro
 
 ## Local Setup
 ```bash
-docker-compose up
+docker-compose up -d --build
 ```
 - App: http://localhost:8080
 - phpmyadmin: http://localhost:8081
+
+Both the main (`traffic_tracker`) and test (`traffic_tracker_test`) databases, along with their schema, are created automatically on first startup.
+
+### Running tests
+```bash
+docker exec traffic-tracker-app phpunit --colors=always
+```
 
 ## Development Phase
 - [x] Phase -1: Docker environment
