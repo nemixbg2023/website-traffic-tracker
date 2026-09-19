@@ -1,0 +1,1 @@
+{"version":2,"defects":[],"times":{"Tests\\Service\\TrackingServiceTest::test_returns_existing_visitor_id_when_provided":0.806,"Tests\\Service\\TrackingServiceTest::test_generates_new_visitor_when_none_provided":0.075,"Tests\\Service\\TrackingServiceTest::test_generates_defferent_ids_on_each_call":0.165}}

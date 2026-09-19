@@ -13,7 +13,13 @@ RUN echo '<Directory /var/www/app/public>\n\
         AllowOverride All\n\
     </Directory>' >> /etc/apache2/apache2.conf
 
+# Install unzip - Composer needs it to extract downloaded packages
+RUN apt-get update && apt-get install -y unzip
+
 # Copy Composer binary from the offical Composer image
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Add vendor/bin to PATH so commands like phpunit can be run without the full path
+ENV PATH="/var/www/app/vendor/bin:${PATH}"
 
 WORKDIR /var/www/app
