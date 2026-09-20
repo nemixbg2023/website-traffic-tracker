@@ -14,4 +14,4 @@ Thumbs.db
 !.vscode/settings.json
 
 # PHPUnit-generated files
-.phpunit.result.cashe
+.phpunit.result.cache
