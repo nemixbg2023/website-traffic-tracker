@@ -14,4 +14,22 @@ class TrackingService
 
         return bin2hex(random_bytes(16));
     }
+
+    public function normalizePageUrl(string $pageUrl): string
+    {
+        $parts = parse_url($pageUrl);
+        // If parse_url couldn't extract a scheme or host, the URL is malformed—
+        // return it as-is and let upstream validation (filter_var) reject it
+        if (!isset($parts['scheme'], $parts['host'])) {
+            return $pageUrl;
+        }
+
+        $normalized = $parts['scheme'] . '://' . $parts['host'];
+
+        if (isset($parts['path'])) {
+            $normalized .= $parts['path'];
+        }
+        
+        return $normalized;
+    }
 }

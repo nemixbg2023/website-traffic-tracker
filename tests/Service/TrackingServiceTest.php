@@ -38,4 +38,22 @@ class TrackingServiceTest extends TestCase
 
         $this->assertNotSame($firstCall, $secondCall);
     }
+
+    public function test_normalize_page_url_strips_query_string(): void
+    {
+        $service = new TrackingService();
+
+        $result = $service->normalizePageUrl('https://example.com/page?utm_source=facebook&session=abc123');
+
+        $this->assertSame('https://example.com/page', $result);
+    }
+
+    public function test_normalize_page_url_keeps_url_without_query_string_unchanged(): void
+    {
+        $service = new TrackingService();
+
+        $result = $service->normalizePageUrl('https://example.com/page');
+
+        $this->assertSame('https://example.com/page', $result);
+    }
 }

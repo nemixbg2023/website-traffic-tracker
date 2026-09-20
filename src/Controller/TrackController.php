@@ -45,6 +45,8 @@ class TrackController
             return;
         }
 
+        $pageUrl = $this->service->normalizePageUrl($pageUrl);
+
         // --- 3. Save via repository ---
         $this->repository->save($pageUrl, $referrer, $visitorId, $userAgent);
 

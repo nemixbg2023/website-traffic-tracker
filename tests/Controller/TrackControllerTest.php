@@ -66,7 +66,7 @@ class TrackControllerTest extends TestCase
             $controller = new TrackController($repository, $service);
 
             $requestBody = json_encode([
-                'page_url' => 'https://example.com/test',
+                'page_url' => 'https://example.com/test?utm_source=facebook',
                 'referrer' => 'https://google.com',
             ]);
 
