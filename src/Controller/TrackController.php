@@ -39,7 +39,7 @@ class TrackController
         $referrer = $data['referrer'] ?? null;
         $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? null;
 
-        if ($pageUrl === null) {
+        if ($pageUrl === null || filter_var($pageUrl, FILTER_VALIDATE_URL) === false) {
             http_response_code(400);
             echo json_encode(['error' => 'Missing required field: Page URL']);
             return;

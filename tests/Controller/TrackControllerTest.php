@@ -32,6 +32,22 @@ class TrackControllerTest extends TestCase
         $this->assertSame(400, http_response_code());
     }
 
+    public function test_returns_400_when_page_url_is_not_a_valid_url(): void
+    {
+        $repository = $this->createMock(PageViewRepositoryInterface::class);
+        $repository->expects($this->never())->method('save');
+
+        $service = new TrackingService();
+
+        $controller = new TrackController($repository, $service);
+
+        $requestBody = json_encode(['page_url' => 'not-a-valid-url']);
+
+        $controller->handle($requestBody);
+
+        $this->assertSame(400, http_response_code());
+    }
+
     public function test_saves_page_view_when_page_url_is_provided(): void
     {
         $repository = $this->createMock(PageViewRepositoryInterface::class);
