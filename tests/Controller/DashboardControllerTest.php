@@ -4,6 +4,7 @@ namespace Tests\Controller;
 
 use App\Repository\PageViewRepositoryInterface;
 use App\Controller\DashboardController;
+use App\View\DashboardView;
 use PHPUnit\Framework\TestCase;
 
 class DashboardControllerTest extends TestCase
@@ -19,7 +20,7 @@ class DashboardControllerTest extends TestCase
             ],
         ]);
 
-        $controller = new DashboardController($repository);
+        $controller = new DashboardController($repository, new DashboardView());
 
         // Start capturing output instead of letting it print directly
         ob_start();
@@ -42,7 +43,7 @@ class DashboardControllerTest extends TestCase
             ],
         ]);
 
-        $controller = new DashboardController($repository);
+        $controller = new DashboardController($repository, new DashboardView());
 
         ob_start();
         $controller->handle();

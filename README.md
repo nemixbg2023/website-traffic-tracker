@@ -24,6 +24,9 @@ Both the main (`traffic_tracker`) and test (`traffic_tracker_test`) databases, a
 docker exec traffic-tracker-app phpunit --colors=always
 ```
 
+## HTTPS / Cookie Testing
+The `SameSite=None; Secure` cookie configuration was verified against a real HTTPS tunnel (via ngrok), not just localhost - confirming that the visitor-tracking cookie is correctly set and persisted across requests under real-world HTTPS conditions.
+
 ## Development Phase
 - [x] Phase -1: Docker environment
 - [x] Phase 0: Project setup
