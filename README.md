@@ -30,5 +30,5 @@ docker exec traffic-tracker-app phpunit --colors=always
 - [x] Phase 1: Naive working version
 - [x] Phase 2: Separation of concerns (Router, Controller, Service, Repository)
 - [x] Phase 3: DI container
-- [] Phase 4: Tests
+- [x] Phase 4: Tests
 - [] Phase 5: Polish
