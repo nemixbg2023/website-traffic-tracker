@@ -29,7 +29,7 @@ class TrackingService
         if (isset($parts['path'])) {
             $normalized .= $parts['path'];
         }
-        
+
         return $normalized;
     }
 }

@@ -32,7 +32,7 @@ class DashboardControllerTest extends TestCase
         $this->assertStringContainsString('3', $html);
     }
 
-    public function test_escapes_page_url_to_prevent_xss() : void
+    public function test_escapes_page_url_to_prevent_xss(): void
     {
         $repository = $this->createMock(PageViewRepositoryInterface::class);
         $repository->method('getAggregatedStats')->willReturn([

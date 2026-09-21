@@ -11,7 +11,7 @@ class MySqlPageViewRepositoryTest extends TestCase
 {
     private PDO $pdo;
     private MySqlPageViewRepository $repository;
-  
+
     protected function setUp(): void
     {
         $this->pdo = new PDO(
@@ -21,7 +21,7 @@ class MySqlPageViewRepositoryTest extends TestCase
         );
 
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
+
         $this->repository = new MySqlPageViewRepository($this->pdo);
     }
 
@@ -64,5 +64,4 @@ class MySqlPageViewRepositoryTest extends TestCase
         $this->assertSame(3, (int) $stats[0]['total_views']);
         $this->assertSame(2, (int) $stats[0]['unique_visitors']);
     }
-
 }

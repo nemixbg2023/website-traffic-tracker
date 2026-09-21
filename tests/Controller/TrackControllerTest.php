@@ -60,18 +60,18 @@ class TrackControllerTest extends TestCase
                 $this->isType('string'),
                 'TestAgent/1.0'
             );
-        
-            $service = new TrackingService();
 
-            $controller = new TrackController($repository, $service);
+        $service = new TrackingService();
 
-            $requestBody = json_encode([
-                'page_url' => 'https://example.com/test?utm_source=facebook',
-                'referrer' => 'https://google.com',
-            ]);
+        $controller = new TrackController($repository, $service);
 
-            $controller->handle($requestBody);
+        $requestBody = json_encode([
+            'page_url' => 'https://example.com/test?utm_source=facebook',
+            'referrer' => 'https://google.com',
+        ]);
 
-            $this->assertSame(204, http_response_code());
+        $controller->handle($requestBody);
+
+        $this->assertSame(204, http_response_code());
     }
 }

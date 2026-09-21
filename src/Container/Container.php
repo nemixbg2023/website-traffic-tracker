@@ -8,7 +8,7 @@ class Container
     private array $bindings = [];
 
     // Cache of already-built object, so we don't need to build the thing twice
-    private array $instances= [];
+    private array $instances = [];
 
     public function bind(string $abstract, \Closure $factory): void
     {
@@ -58,7 +58,7 @@ class Container
                     "Cannot auto-resolve parameter '{$parameter->getName()}' in {$class} - no type hint or buil-in type given"
                 );
             }
-            
+
             // Recursively resolve each constructor dependency
             $dependencies[] = $this->get($type->getName());
         }
