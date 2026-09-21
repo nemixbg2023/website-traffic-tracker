@@ -7,9 +7,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use App\Container\Container;
 use App\Repository\PageViewRepositoryInterface;
 use App\Repository\MySqlPageViewRepository;
-use App\Service\TrackingService;
-use App\Controller\TrackController;
-use App\Controller\DashboardController;
+use App\Router;
 
 // --- 2. Build and configure the container ---
 
@@ -35,13 +33,5 @@ $container->bind(PageViewRepositoryInterface::class, function($container) {
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-if ($path === '/track') {
-    $controller = $container->get(TrackController::class);    
-    $controller->handle(file_get_contents('php://input'));
-} elseif ($path === '/dashboard') {
-    $controller = $container->get(DashboardController::class);
-    $controller->handle();
-} else {
-    http_response_code(404);
-    echo '404 Not Found';
-}
+$router = new Router($container);
+$router->dispatch($path, file_get_contents('php://input'));
