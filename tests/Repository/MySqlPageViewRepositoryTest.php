@@ -64,4 +64,27 @@ class MySqlPageViewRepositoryTest extends TestCase
         $this->assertSame(3, (int) $stats[0]['total_views']);
         $this->assertSame(2, (int) $stats[0]['unique_visitors']);
     }
+
+    public function test_get_aggregated_stats_filters_by_date_range(): void
+    {
+        // Insert one view "today" (using the repository's own save method,
+        // which always sets created_at to NOW via the database default)
+        $this->repository->save('https://example.com/page-1', null, 'visitor-today', null);
+
+        // Manually insert a page view with an OLD created_at, bypassing save()
+        // since save() always uses CURRENT_TIMESTAMP
+        $this->pdo->exec(
+            "INSERT INTO page_views (page_url, visitor_id, created_at)
+             VALUES ('https://example.com/page-1', 'visitor-old', '2020-01-01 00:00:00')"
+        );
+
+        // Filter for "today" only - should exclude the old 2020 entry
+        $from = new \DateTimeImmutable('today');
+        $to = new \DateTimeImmutable('today 23:59:59');
+
+        $stats = $this->repository->getAggregatedStats($from, $to);
+
+        $this->assertCount(1, $stats);
+        $this->assertSame(1, (int) $stats[0]['total_views']);
+    }
 }

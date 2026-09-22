@@ -6,5 +6,5 @@ interface PageViewRepositoryInterface
 {
     public function save(string $pageUrl, ?string $referrer, string $visitorId, ?string $userAgent): void;
 
-    public function getAggregatedStats(): array;
+    public function getAggregatedStats(?\DateTimeImmutable $from = null, ?\DateTimeImmutable $to = null): array;
 }

@@ -28,17 +28,26 @@ class MySqlPageViewRepository implements PageViewRepositoryInterface
         ]);
     }
 
-    public function getAggregatedStats(): array
+    public function getAggregatedStats(?\DateTimeImmutable $from = null, ?\DateTimeImmutable $to = null): array
     {
-        $stmt = $this->pdo->query(
-            'SELECT
-                page_url,
-                COUNT(*) AS total_views,
-                COUNT(DISTINCT visitor_id) AS unique_visitors
-             FROM page_views
-             GROUP BY page_url
-             ORDER BY total_views DESC'
-        );
+        $sql = 'SELECT
+                    page_url,
+                    COUNT(*) AS total_views,
+                    COUNT(DISTINCT visitor_id) AS unique_visitors
+                 FROM page_views';
+
+        $params = [];
+
+        if ($from !== null && $to !== null) {
+            $sql .= ' WHERE created_at BETWEEN :from AND :to';
+            $params['from'] = $from->format('Y-m-d H:i:s');
+            $params['to'] = $to->format('Y-m-d H:i:s');
+        }
+
+        $sql .= ' GROUP BY page_url ORDER BY total_views DESC';
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
