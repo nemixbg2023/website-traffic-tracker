@@ -37,6 +37,13 @@ flowchart TD
 - **View** - renders HTML from data, kept separate from controller
 - **Container** - a small reflection-based dependency injection container that wires everything together
 
+## Features
+
+- Lightweight JS tracker snippet, embeddable on any site
+- Cookie-based unique visitor tracking (`SameSite=None; Secure`)
+- Dashboard with aggregated stats (total views + unique visitors per page)
+- Date range filtering on the dashboard (Today / Last 7 days / Last 30 days / All time)
+
 ## Local Setup
 
 ```bash
@@ -67,3 +74,4 @@ The `SameSite=None; Secure` cookie configuration was verified against a real HTT
 - [x] Phase 3: DI container
 - [x] Phase 4: Tests
 - [x] Phase 5: Polish
+- [x] Phase 6: Date range filtering on dashboard
