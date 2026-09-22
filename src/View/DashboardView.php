@@ -4,7 +4,7 @@ namespace App\View;
 
 class DashboardView
 {
-    public function render(array $stats): string
+    public function render(array $stats, string $selectedPeriod = 'today'): string
     {
         ob_start();
 ?>
@@ -18,6 +18,16 @@ class DashboardView
 
         <body>
             <h1>Traffic Tracker Dashboard</h1>
+
+            <form method="get" action="/dashboard">
+                <label for="period">Period:</label>
+                <select name="period" id="period" onchange="this.form.submit()">
+                    <option value="today" <?= $selectedPeriod === 'today' ? 'selected' : '' ?>>Today</option>
+                    <option value="7days" <?= $selectedPeriod === '7days' ? 'selected' : '' ?>>Last 7 days</option>
+                    <option value="30days" <?= $selectedPeriod === '30days' ? 'selected' : '' ?>>Last 30 days</option>
+                    <option value="all" <?= $selectedPeriod === 'all' ? 'selected' : '' ?>>All time</option>
+                </select>
+            </form>
 
             <table border="1" cellpadding="8">
                 <thead>
