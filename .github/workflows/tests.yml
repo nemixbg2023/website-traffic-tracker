@@ -1,0 +1,39 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build and start containers
+        run: docker compose up -d --build
+
+      - name: Wait for MySQL to be ready
+        run: |
+          for i in {1..30}; do
+            if docker exec traffic-tracker-db mysqladmin ping -h localhost -u root -prootpass --silent; then
+              echo "MySQL is ready"
+              break
+            fi
+            echo "Waiting for MySQL..."
+            sleep 2
+          done
+
+      - name: Install Composer dependencies
+        run: docker exec traffic-tracker-app composer install
+
+      - name: Run tests
+        run: docker exec traffic-tracker-app phpunit --colors=always
+
+      - name: Stop containers
+        if: always()
+        run: docker compose down -v
