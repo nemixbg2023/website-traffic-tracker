@@ -1,3 +1,5 @@
+[![Tests](https://github.com/nemixbg2023/website-traffic-tracker/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/nemixbg2023/website-traffic-tracker/actions/workflows/tests.yml)
+
 # Website Traffic Tracker
 
 A simple website traffic tracker built progressively as a learning/portfolio project.
